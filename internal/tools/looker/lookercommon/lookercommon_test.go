@@ -94,6 +94,24 @@ func TestExtractLookerFieldProperties(t *testing.T) {
 			},
 		},
 		{
+			desc: "field with empty value formats",
+			fields: []v4.LookmlModelExploreField{
+				{
+					Name:            stringPtr("measure_name"),
+					Type:            stringPtr("number"),
+					ValueFormat:     stringPtr(""),
+					ValueFormatName: stringPtr(""),
+				},
+			},
+			want: []any{
+				map[string]any{
+					"name": "measure_name",
+					"type": "number",
+					// neither value_format nor value_format_name should be present in the map
+				},
+			},
+		},
+		{
 			desc: "field with only value_format_name set",
 			fields: []v4.LookmlModelExploreField{
 				{

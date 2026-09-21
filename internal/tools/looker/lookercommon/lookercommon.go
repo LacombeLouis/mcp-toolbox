@@ -80,10 +80,10 @@ func ExtractLookerFieldProperties(ctx context.Context, fields *[]v4.LookmlModelE
 		if v.Synonyms != nil && len(*v.Synonyms) > 0 {
 			vMap["synonyms"] = *v.Synonyms
 		}
-		if v.ValueFormat != nil {
+		if v.ValueFormat != nil && *v.ValueFormat != "" {
 			vMap["value_format"] = *v.ValueFormat
 		}
-		if v.ValueFormatName != nil {
+		if v.ValueFormatName != nil && *v.ValueFormatName != "" {
 			vMap["value_format_name"] = *v.ValueFormatName
 		}
 		if v.Suggestable != nil {
