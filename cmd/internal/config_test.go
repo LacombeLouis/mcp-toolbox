@@ -184,6 +184,30 @@ func TestParseEnv(t *testing.T) {
 			wantOptional: []string{"DB_PORT"},
 		},
 		{
+			desc: "multiline yaml with env var between comment blocks",
+			in: "# First comment block\n" +
+				"# Second comment block\n" +
+				"# Third comment block\n" +
+				"# Fourth comment block\n" +
+				"# Fifth comment block\n" +
+				"# Sixth comment block\n" +
+				"# Seventh comment block\n" +
+				"user: ${FOO}\n" +
+				"# Another comment block\n",
+			env: map[string]string{
+				"FOO": "bar",
+			},
+			want: "# First comment block\n" +
+				"# Second comment block\n" +
+				"# Third comment block\n" +
+				"# Fourth comment block\n" +
+				"# Fifth comment block\n" +
+				"# Sixth comment block\n" +
+				"# Seventh comment block\n" +
+				"user: bar\n" +
+				"# Another comment block\n",
+		},
+		{
 			desc:         "with default without env",
 			in:           "${FOO:}",
 			want:         "",
@@ -2389,7 +2413,7 @@ func TestPrebuiltTools(t *testing.T) {
 				"looker_tools": group.GroupConfig{
 					Name:        "looker_tools",
 					Description: "These skills are designed for data discovery and business intelligence.",
-					ToolNames:   []string{"get_models", "get_explores", "get_dimensions", "get_measures", "get_filters", "get_parameters", "get_field_value_suggestions", "query", "query_sql", "query_url", "get_looks", "run_look", "make_look", "get_dashboards", "run_dashboard", "make_dashboard", "add_dashboard_element", "add_dashboard_filter", "generate_embed_url", "get_dashboard", "update_dashboard_element", "create_dashboard_layout", "update_dashboard_layout_component"},
+					ToolNames:   []string{"get_models", "get_explores", "get_explore", "get_dimensions", "get_measures", "get_filters", "get_parameters", "get_field_value_suggestions", "query", "query_sql", "query_url", "get_looks", "run_look", "make_look", "get_dashboards", "run_dashboard", "make_dashboard", "add_dashboard_element", "add_dashboard_filter", "generate_embed_url", "get_dashboard", "update_dashboard_element", "create_dashboard_layout", "update_dashboard_layout_component"},
 				},
 			},
 		},
